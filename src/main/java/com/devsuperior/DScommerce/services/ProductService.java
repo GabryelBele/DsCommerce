@@ -1,5 +1,6 @@
 package com.devsuperior.DScommerce.services;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,9 +24,18 @@ public class ProductService {
 	}
 
 	@Transactional(readOnly = true)
-
 	public Page<ProductDTO> findAll(Pageable pageable) {
 		Page<Product> result = productRepository.findAll(pageable);
 		return result.map(x -> new ProductDTO(x));
+	}
+	
+	@Transactional
+	public ProductDTO insert(ProductDTO dto) {
+		Product entity = new Product();
+		BeanUtils.copyProperties(dto, entity);
+		
+		entity = productRepository.save(entity);
+		
+		return new ProductDTO(entity);
 	}
 }
