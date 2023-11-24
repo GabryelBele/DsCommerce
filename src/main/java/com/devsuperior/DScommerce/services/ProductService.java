@@ -44,9 +44,15 @@ public class ProductService {
 		Product entity = productRepository.getReferenceById(id);
 
 		entity.setName(dto.getName());
-        entity.setDescription(dto.getDescription());
-        entity.setPrice(dto.getPrice());
-        entity.setImgUrl(dto.getImgUrl());
+		entity.setDescription(dto.getDescription());
+		entity.setPrice(dto.getPrice());
+		entity.setImgUrl(dto.getImgUrl());
 		return new ProductDTO(entity);
+	}
+
+	@Transactional
+	public void delete(Long id) {
+		productRepository.deleteById(id);
+
 	}
 }
