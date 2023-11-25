@@ -4,14 +4,23 @@ import org.springframework.beans.BeanUtils;
 
 import com.devsuperior.DScommerce.domain.Product;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class ProductDTO {
 
 	private Long id;
 
+	@NotBlank(message = "Campo requirido")
+	@Size(min = 3, max = 80, message = "Nome precisa de 3 a 80 caracteres")
 	private String name;
 
+	@NotBlank(message = "Campo requirido")
+	@Size(min = 10, message = "Descrição precisa ter no minimo 10 caracteres")
 	private String description;
 
+	@Positive(message = "O preço deve se posistivo")
 	private Double price;
 
 	private String imgUrl;
